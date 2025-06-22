@@ -1,67 +1,60 @@
 package Practical_06;
 
-import java.util.Scanner;
-
 public class BinaryTree {
-    private static class Node{
-        int value;
-        Node left;
-        Node right;
 
-        public Node(int value) {
-            this.value = value;
+    Node root;
+
+    public void insert(int data){
+        root = insertRec(root,data);
+    }
+
+    private Node insertRec(Node root, int data){
+        if (root == null) {
+            root = new Node(data);
+        }
+        else if (data < root.data) {
+            root.left = insertRec(root.left,data);
+        } else if (data > root.data) {
+            root.right = insertRec(root.right, data);
+        }
+        return root;
+    }
+
+    public void inorder(){
+        inorderRec(root);
+    }
+
+    private void inorderRec(Node root){
+        if (root != null){
+            inorderRec(root.left);
+            System.out.print(root.data + " ");
+            inorderRec(root.right);
         }
     }
 
-    private Node root;
-
-    // insert element
-
-    public void populate(Scanner scanner){
-        System.out.println("Enter the root Node : ");
-        int value = scanner.nextInt();
-        root = new Node(value);
-        populate(scanner, root);
+    public void preOrder(){
+        preOrderRec(root);
     }
 
-    public void populate(Scanner scanner, Node node){
-        System.out.println("Do you want to enter left of "+ node.value);
-        boolean left = scanner.nextBoolean();
-        if (left){
-            System.out.println("Enter the value of the left of "+ node.value);
-            int value = scanner.nextInt();
-            node.left = new Node(value);
-            populate(scanner, node.left);
-        }
-
-        System.out.println("Do you want to enter right of "+ node.value);
-        boolean right = scanner.nextBoolean();
-        if (right){
-            System.out.println("Enter the value of the right of "+ node.value);
-            int value = scanner.nextInt();
-            node.right = new Node(value);
-            populate(scanner, node.right);
-
+    private void preOrderRec(Node root) {
+        if (root != null){
+            System.out.print(root.data + " ");
+            preOrderRec(root.left);
+            preOrderRec(root.right);
         }
     }
 
-    public void display(){
-        display(root, "");
+    public void postOrder(){
+        postOrderRec(root);
     }
 
-    private void display(Node node, String indent){
-        if (node == null)
-            return;
-
-        System.out.println(indent + node.value);
-        display(node.left, indent + "\t");
-        display(node.right, indent + "\t");
+    private void postOrderRec(Node root) {
+        if (root != null){
+            postOrderRec(root.left);
+            postOrderRec(root.right);
+            System.out.print(root.data + " ");
+        }
     }
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        BinaryTree tree = new BinaryTree();
-        tree.populate(scanner);
-        tree.display();
-    }
+
 }
