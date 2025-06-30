@@ -65,9 +65,6 @@ public class Q1 {
             students[i] = temp;
         }
 
-        for (Student s : students){
-            System.out.printf("%s\t%s\t%s\t\t%s\n",s.stNumber,s.name,s.gender,s.grade);
-        }
     }
 
     static void binarySearch(String input){
@@ -76,27 +73,46 @@ public class Q1 {
         int right = students.length - 1;
 
         while (left <= right){
-            int mid = (left + right) / 2;
+            int mid = left + (right - left) / 2;
+            if (students[mid].grade.equals(input)){
+                System.out.printf("%s\t%s\t%s\t\t%s\n",students[mid].stNumber,students[mid].name,students[mid].gender,students[mid].grade);
+
+                int low = mid - 1;
+                while (low >= 0 && students[low].grade.equals(input)){
+                    System.out.printf("%s\t%s\t%s\t\t%s\n",students[low].stNumber,students[low].name,students[low].gender,students[low].grade);
+                    low--;
+                }
+
+                int high = mid + 1;
+                while (high <= students.length && students[high].grade.equals(input)){
+                    System.out.printf("%s\t%s\t%s\t\t%s\n",students[high].stNumber,students[high].name,students[high].gender,students[high].grade);
+                    high++;
+                }
+                break;
+            } else if (students[mid].grade.charAt(0) < input.charAt(0)) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+
 
         }
 
     }
 
 
-
-
-
-
     public static void main(String[] args) {
         inputAndDisplayProduct();
         Scanner scanner = new Scanner(System.in);
 
-        //System.out.println("Enter grade to search student: ");
-        //String input = scanner.nextLine().toUpperCase();
+        System.out.println("Enter grade to search student: ");
+        String input = scanner.nextLine().toUpperCase();
 
         sortData();
 
-        //sequentialSearch(input);
+        sequentialSearch(input);
+        System.out.println();
+        binarySearch(input);
     }
 
 
