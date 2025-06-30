@@ -1,4 +1,4 @@
-package Practical_09;
+package Practical_09.Q1;
 
 public class Product {
     String productId;
@@ -18,6 +18,10 @@ public class Product {
 
     public double getSaleAmount(){
         return unitPrice * qty;
+    }
+
+    public void setQty(int qty){
+        this.qty = qty;
     }
 
     public String toString(){
