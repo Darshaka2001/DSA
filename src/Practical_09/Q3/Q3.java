@@ -55,5 +55,11 @@ public class Q3 {
         System.out.printf("%.2f%%",presentage);
 
 
+        System.out.println("\n\n\n");
+
+        list.mergeSort();
+        list.display();
+
+
     }
 }

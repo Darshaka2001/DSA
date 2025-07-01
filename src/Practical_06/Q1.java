@@ -1,8 +1,5 @@
 package Practical_06;
 
-import java.util.Arrays;
-import java.util.stream.Stream;
-
 public class Q1 {
     public static void printTree(BinaryTree tree){
         System.out.print("In-Order Traversal : ");

@@ -63,4 +63,58 @@ public class List {
     public int size(){
         return size;
     }
+
+    public void set(int index, Account account){
+        accounts[index] = account;
+    }
+
+    public void mergeSort(){
+        if (this.size() <= 1){
+            return;
+        }
+
+        int mid = this.size() / 2;
+
+        // Divide
+        List left = new List();
+        for (int i = 0; i < mid; i++) {
+            left.add(this.get(i));
+        }
+
+        List right = new List();
+        for (int i = mid; i < this.size(); i++) {
+            right.add(this.get(i));
+        }
+
+        // conquer
+        left.mergeSort();
+        right.mergeSort();
+
+        // marge
+        this.merge(left, right);
+    }
+
+    private void merge(List left, List right) {
+
+        int leftIndex = 0, rightIndex = 0, mainIndex = 0;
+
+        while (leftIndex < left.size() && rightIndex < right.size()){
+            if (left.get(leftIndex).getCustomerName().compareTo(right.get(rightIndex).getCustomerName()) <= 0){
+                this.set(mainIndex++,left.get(leftIndex++));
+            } else {
+                this.set(mainIndex++,right.get(rightIndex++));
+            }
+        }
+
+        // copy remaining elements for left
+        while (leftIndex < left.size()){
+            this.set(mainIndex++, left.get(leftIndex++));
+        }
+
+        // copy remaining elements for right
+        while (rightIndex < right.size()){
+            this.set(mainIndex++, right.get(rightIndex++));
+        }
+
+    }
 }
